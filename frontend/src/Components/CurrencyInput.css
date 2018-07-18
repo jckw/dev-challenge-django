@@ -3,11 +3,12 @@
 	margin: auto;
 	font-weight: 800;
 	white-space: nowrap;
-	display: inline-block;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
 }
 
 .currency-input span {
-	height: 18px;
 	background: white;
 	display: inline-block;
 	font-size: 15px;
@@ -16,6 +17,7 @@
 	border-bottom-left-radius: 8px;
 	border-top-left-radius: 8px;
 	border-right: none;
+	line-height: 1.25em;
 }
 
 .currency-input input {

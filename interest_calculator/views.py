@@ -1,16 +1,26 @@
-from django.http import JsonResponse, HttpResponseBadRequest
-from django.views.decorators.http import require_POST
-from django.views.decorators.csrf import csrf_exempt
-import json
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
-@require_POST
-@csrf_exempt
-def calculate(request):
-    params = json.loads(request.body)
-    savings_amount = params.get('savingsAmount', None)
-    interest_rate = params.get('interestRate', None)
+from .serializers import calculate_data, CalculateSerializer
 
-    if savings_amount is None or interest_rate is None:
-        return HttpResponseBadRequest('Required parameters are not provided')
 
-    return JsonResponse({'result': 1000})
+# Note about choosing GET:
+# As this endpoint does not update any data on the server, and we are GETting information from the server, we ought to
+# use GET as out method.
+class CalculateView(APIView):
+    def get(self, request, format=None):
+        serializer = CalculateSerializer(data=request.GET)
+
+        if serializer.is_valid():
+            years = 50
+            graph_data, result = calculate_data(
+                float(serializer.validated_data["savingsAmount"]),
+                float(serializer.validated_data["monthlySaving"]),
+                float(serializer.validated_data["interestRate"]),
+                serializer.validated_data["interestFreq"],
+                years * 12)
+
+            return Response({'result': result, 'graph_data': graph_data})
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

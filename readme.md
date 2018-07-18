@@ -1,51 +1,17 @@
 # Finimize dev challenge
 
-## Python & Django setup
-
-* Install `python3` via brew
-* Clone the repo
-* cd into repo
-* Install `virtualenv` using `pip3` (think yarn)
-
-```sh
-sudo pip3 install virtualenv
-```
-
-* Create a virtualenv for the project
-
-```sh
-virtualenv -p python3 venv
-```
-
-If you're having trouble completing this step, try upgrading virtualenv first `pip3 install --upgrade virtualenv`
-
-* Activate the virtualenv
-
-```sh
-source venv/bin/activate
-```
-
-* Install dependencies in the new virtualenv
-
-```
-pip3 install -r requirements.txt
-```
-
-```
-python3 manage.py runserver
-```
-
-* Server should be running at http://localhost:8000
-
-
- ## Client setup
-
- * cd into `frontend` and run `yarn install`
-
- * Run `yarn start`. 
-
-The webapp should now be running at http://localhost:3000 🚀
-
+## Development
+1. Implemented a `select` component to choose how frequently interest is paid. State was stored at the component's level, the same as was initially done in for CurrentInput etc. Also added a space for `result` to be shown.
+2. Lifted the state to the `InputGraphSection` level, so that data can be sent to the API in the future, and that data from each component remains in sync. This was done by providing callback methods that each input component uses in their handleChange functions (or similar).
+3. Changed the `API.js` function `calculate` to require parameters for the frequency that interest is paid, and the amount saved each month. Modified the Django backend to prepare for this (still using a simple POST view). Removed the API call and state change in `App.componentDidMount`.
+4. Wrote the `calculate_data` function to produce a `Dict` of the response data for valid inputs. Added basic `if ... then` verification that the data was available (and valid, in the case of the frequency of interest payments, using `if x in y then` style checking. Started planning tests.
+5. Wrote `effective_rate` to calculate the interest rate per month or quarter if specified.
+6. Defined `defaultValues` at the App level, and new function to interact with the API called `apiCalculate`. Both are passed down to the `inputGraphSection` component so that data changes at that level can result in API calls.
+7. Implemented `handleAnyChange` at the `InputGraphSection` level, to update the result via an API call.
+8. Added `graph_data` to defaults. Added an initial API call and updated defaults based on that so that UI is filled out on load. Passed graph data to `DisplayGraph`.
+9. Switched from basic Django to Django REST Framework. Implemented serializer to perform data validation nicely. Change view to APIView, and used GET instead of POST (explanation in file). Changed API.js to match this, including basic error checking which can be seen in it.
+10. Planned more tests for frontend.
+11. Added a few stylistic changes, and some emojis as necessary.
 
 ## The challenge
 

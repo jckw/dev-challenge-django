@@ -1,11 +1,21 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { VictoryLine, VictoryChart } from 'victory'
+import { VictoryLine, VictoryChart, VictoryAxis } from 'victory'
 
 export default class DisplayGraph extends Component {
 
 	render() {
-		const { data } = this.props;
+		const { data, isEmpty } = this.props;
+
+		if (isEmpty) {
+			return (
+				<p>You should be saving a little more than that! <span role="img" aria-label="shock">😱</span></p>
+			)
+		}
+
+		if (data === null) {
+			return null
+		}
 
 		const baseProps = {
   		width: 450,
@@ -66,5 +76,6 @@ export default class DisplayGraph extends Component {
 }
 
 DisplayGraph.propTypes = {
-	data: PropTypes.arrayOf(PropTypes.object)
+	data: PropTypes.arrayOf(PropTypes.object),
+	isEmpty: PropTypes.Boolean
 };

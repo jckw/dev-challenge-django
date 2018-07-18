@@ -2,7 +2,16 @@
   padding: 20px;
 }
 
+.financial-display {
+  max-width: 600px;
+  margin: auto;
+}
+
 .input-label {
   margin-bottom: 4px;
   margin-top: 12px;
+}
+
+.content-wrapper {
+  margin: 1em;
 }
