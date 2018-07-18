@@ -16,15 +16,24 @@ export default class InputGraphSection extends Component {
             interestFreq: this.props.defaults.interestFreq,
             result: this.props.defaults.result,
             graph_data: this.props.defaults.graph_data,
+            latest: true
         }
 
         this.handleAnyChange = this.handleAnyChange.bind(this)
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!this.state.latest && this.props.unreachable !== prevProps.unreachable) {
+            console.log("Change!")
+            this.handleAnyChange()
+        }
     }
 
     handleErrors() {
         this.props.reportReachability()
 
         this.setState({
+            latest: false,
             result: null,
             graph_data: null
         })
@@ -41,6 +50,7 @@ export default class InputGraphSection extends Component {
                 else {
                     this.props.reportReachability(true)
                     this.setState({
+                        latest: true,
                         result: r.result,
                         graph_data: r.graph_data
                     })
