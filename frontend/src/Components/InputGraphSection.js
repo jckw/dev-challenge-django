@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, {Component} from "react"
 import CurrencyInput from "./CurrencyInput"
 import SliderInput from "./SliderInput"
 import DisplayGraph from "./DisplayGraph"
@@ -12,8 +12,8 @@ export default class InputGraphSection extends Component {
         this.state = {
             savingsAmount: this.props.defaults.savingsAmount,
             monthlySaving: this.props.defaults.monthlySaving,
-            interestRate:  this.props.defaults.interestRate,
-            interestFreq:  this.props.defaults.interestFreq,
+            interestRate: this.props.defaults.interestRate,
+            interestFreq: this.props.defaults.interestFreq,
             result: this.props.defaults.result,
             graph_data: this.props.defaults.graph_data,
         }
@@ -106,9 +106,10 @@ export default class InputGraphSection extends Component {
                 </div>
                 <div className="financial-display">
                     {this.props.unreachable ? null :
-                        <DisplayGraph data={this.state.graph_data} isEmpty={this.state.monthlySaving == 0 && this.state.savingsAmount == 0}/> }
+                        <DisplayGraph data={this.state.graph_data}
+                                      isEmpty={this.state.monthlySaving == 0 && this.state.savingsAmount == 0}/>}
                 </div>
-                </div>
-            )
-        }
+            </div>
+        )
     }
+}
