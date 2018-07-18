@@ -24,7 +24,6 @@ export default class InputGraphSection extends Component {
 
     componentDidUpdate(prevProps) {
         if (!this.state.latest && this.props.unreachable !== prevProps.unreachable) {
-            console.log("Change!")
             this.handleAnyChange()
         }
     }

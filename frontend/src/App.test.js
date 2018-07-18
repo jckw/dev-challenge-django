@@ -1,12 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import { shallow } from 'enzyme';
+import TestRenderer from 'react-test-renderer';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
-});
+import App from './App';
+import InputGraphSection from "./Components/InputGraphSection";
+
+describe('App in general', () => {
+    it('renders without crashing', () => {
+        expect(shallow(<App />).find('div.App').exists()).toBe(true)
+    });
+
+    it('is loading when rendered', () => {
+        expect(shallow(<App />).state().loading).toBe(true)
+    });
+})
 
 /* Proposed tests:
   * Potential connection errors:

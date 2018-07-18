@@ -1,7 +1,7 @@
 from typing import Dict, List, Union
 from rest_framework import serializers
 
-INTEREST_FREQ = {"m": 1, "q": 3, "a": 12}
+interest_freqs = {"m": 1, "q": 3, "a": 12}
 
 
 def calc_interest(amount: float, rate: float, interval: int) -> float:
@@ -20,19 +20,19 @@ def fmt_datum(month: int, amount: float) -> Dict[str, Union[int, float]]:
     }
 
 
-def calculate_data(savings_amount: float, monthly_saving: float, interest_rate: float,
-                 interest_freq: str, months: int) -> (Dict[str, Union[int, float]], float):
-    amount = savings_amount
-    interval = INTEREST_FREQ[interest_freq]
+def calculate_data(savingsAmount: float, monthlySaving: float, interestRate: float,
+                 interestFreq: str, months: int) -> (Dict[str, Union[int, float]], float):
+    amount = savingsAmount
+    interval = interest_freqs[interestFreq]
 
     graph_data = [fmt_datum(month=0, amount=amount)]
 
     for i in range(1, months + 1):
-        amount += monthly_saving
+        amount += monthlySaving
 
         # Apply interest, if due
         if i % interval == 0:
-            amount += calc_interest(amount, interest_rate, interval)
+            amount += calc_interest(amount, interestRate, interval)
 
         amount = round(amount, 2)  # assuming banks round up OR down to 2 dp
 
@@ -48,7 +48,7 @@ class CalculateSerializer(serializers.Serializer):
     interestFreq = serializers.CharField(max_length=None)
 
     def validate_interestFreq(self, value):
-        if value not in INTEREST_FREQ:
+        if value not in interest_freqs:
             raise serializers.ValidationError("Invalid interest frequency supplied")
 
         return value

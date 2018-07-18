@@ -24,6 +24,6 @@ export const calculate = (savingsAmount, monthlySaving, interestRate, interestFr
             return {result, graph_data}
         })
         .catch(error => {
-            console.log(error)
+            //console.log(error)
         })
 }

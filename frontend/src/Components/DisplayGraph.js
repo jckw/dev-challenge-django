@@ -77,5 +77,5 @@ export default class DisplayGraph extends Component {
 
 DisplayGraph.propTypes = {
     data: PropTypes.arrayOf(PropTypes.object),
-    isEmpty: PropTypes.Boolean
+    isEmpty: PropTypes.bool
 };
