@@ -12,6 +12,7 @@
 9. Switched from basic Django to Django REST Framework. Implemented serializer to perform data validation nicely. Change view to APIView, and used GET instead of POST (explanation in file). Changed API.js to match this, including basic error checking which can be seen in it.
 10. Planned more tests for frontend.
 11. Added a few stylistic changes, and some emojis as necessary.
+12. Implemented tests in React using Enzyme and Jest for the first time. Mainly snapshot tests of inputs, with some more specific render-related tests. Added Django API tests as previously specified. Property tests weren't implemented, but would be a good idea to have if this were a real product.
 
 ## The challenge
 
